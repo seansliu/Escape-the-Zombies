@@ -30,17 +30,17 @@ class ZombieGame:
 
 		# difficulty buttons
 		self.easy_butt = Tk.Button(self.difficulty_frame, text='Easy', 
-			command=self.start)
+			command=self.start_easy)
 		self.easy_butt.pack(side='left')
 		self.medium_butt = Tk.Button(self.difficulty_frame, text='Medium', 
-			command=self.start)
+			command=self.start_medium)
 		self.medium_butt.pack(side='left')
 		self.hard_butt = Tk.Button(self.difficulty_frame, text='Hard', 
-			command=self.start)
+			command=self.start_hard)
 		self.hard_butt.pack(side='left')
 
 		# gameplay image
-		self.image = ImageTk.PhotoImage(Image.open('a.jpg'))
+		self.image = ImageTk.PhotoImage(Image.open('images/zombies.jpg'))
 		self.image_label = Tk.Label(self.mid_frame, image=self.image)
 		self.image_label.pack(side='top', fill='both', expand='yes')
 
@@ -59,14 +59,12 @@ class ZombieGame:
 		# self.tracker_label.pack(side = 'left')
 
 		# Play and Quit frames.
-		self.play_butt = Tk.Button(self.play_frame, \
-									text = 'Play', \
-									command = self.start)
-		self.quit_butt = Tk.Button(self.quit_frame, \
-									text = 'Quit', \
-									command = self.quit_now)
-		self.play_butt.pack(side = 'left')
-		self.quit_butt.pack(side = 'right')
+		self.play_butt = Tk.Button(self.play_frame, text='Replay', \
+			command = self.start)
+		self.quit_butt = Tk.Button(self.quit_frame, text='Quit', 
+			command = self.quit_now)
+		self.play_butt.pack(side='left')
+		self.quit_butt.pack(side='right')
 
 		# Stat tracking frame.
 		self.stats = Tk.StringVar(value = 'Avg. number of guesses to win: ')
@@ -91,8 +89,29 @@ class ZombieGame:
 		
 		Tk.mainloop()
 
-	def start(self):
+	def start_easy(self):
+		"""start game in easy mode"""
+		self.start(0)
+
+	def start_medium(self):
+		"""start game in easy mode"""
+		self.start(1)
+
+	def start_hard(self):
+		"""start game in easy mode"""
+		self.start(2)
+
+	def start(self, mode):
 		"""initialize the game"""
+		if mode == 0:
+			print 0
+		elif mode == 1:
+			print 1
+		else:
+			print 2
+		self.image = ImageTk.PhotoImage(Image.open('images/zombies2.jpg'))
+		self.image_label.configure(image=self.image)
+
 
 	def play(self):
 		"""plays the game"""
