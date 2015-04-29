@@ -178,14 +178,15 @@ class ZombieGame:
 				print 'lose'
 
 
+	def quit_now(self):
+		"""quits the game by closing the GUI window"""
+		self.main_window.destroy()
+
+
 	def chill(self):
 		"""do nothing"""
 		return
 		
-
-	def quit_now(self):
-		'''destroys the GUI'''
-		self.main_window.destroy()
 
 
 z = ZombieGame()
