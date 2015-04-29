@@ -27,9 +27,10 @@ class ZombieGame:
 		self.stats_frame = Tk.Frame()
 
 		# initialize images
-		self.images = [	ImageTk.PhotoImage(Image.open('images/zombies.ppm')),
-						ImageTk.PhotoImage(Image.open('images/zombies2.ppm'))
-						]
+		self.images = [
+			ImageTk.PhotoImage(Image.open('images/zombies.ppm')),
+			ImageTk.PhotoImage(Image.open('images/zombies2.ppm'))
+		]
 
 		# initizlize data structures
 		self.word_bank = {}
