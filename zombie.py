@@ -28,16 +28,19 @@ class zomb:
 
         return self.dictionary
                 
-    def generate_word(self):
-        #generate random number
-        num = random.randint(2,23)
-        print num        
+    def generate_word(self, level):
+        #generate random number according to level
+        if level == 0:
+                num = random.randint(2,7)
+        elif level == 1:
+                num = random.randint(8,14)
+        else:
+                num = random.randint(17,23)
+
         #generate random word from number
         ranword = random.choice(self.dictionary[num])
-        print ranword
-        
+
         return ranword
-        
     
 # others...
 
