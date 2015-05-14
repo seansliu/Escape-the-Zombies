@@ -6,8 +6,6 @@ from zombie import *
 import Tkinter as Tk
 from PIL import Image, ImageTk
 
-test = 'zombie'
-
 class ZombieGame:
 	"""Escape the Zombie Game"""
 
@@ -183,14 +181,17 @@ class ZombieGame:
 
 			if self.word == ''.join(self.guess):
 				self.image_label.configure(image=self.win_img)
-				self.direction.set('Congratulations, you win! Play again?')
+				msg = 'Congratulations, you win! Hit Replay to play again.'
+				self.direction.set(msg)
 				self.guess_butt.configure(command=self.chill)
 			return
 
 		self.mistakes += 1
 		if self.mistakes >= 7:
 			self.image_label.configure(image=self.lose_img)
-			self.direction.set('Aw, you lose! Your word was \"%s\".' %self.word)
+			msg = 'Aw, you lose! Your word: %s. Hit Replay to play again.' \
+			%self.word
+			self.direction.set(msg)
 			self.guess_butt.configure(command=self.chill)
 		else:
 			self.image_label.configure(image=self.images[self.mistakes])
@@ -209,4 +210,3 @@ class ZombieGame:
 
 
 z = ZombieGame()
-
