@@ -39,7 +39,7 @@ class ZombieGame:
 		self.guess = []
 		self.guesses = []
 		self.mistakes = 0
-
+				
 		# directions frame
 		self.direction = Tk.StringVar(value='Select a difficulty to begin.')
 		self.dir_label = Tk.Label(self.top_frame, width=60, bg='cyan', \
@@ -102,10 +102,10 @@ class ZombieGame:
 
 		# Variables needed in play function.
 		self.comp = Tk.StringVar()
-		self.tries = Tk.IntVar()
-		self.wintries = Tk.IntVar(value = 0)
+		self.badguess = Tk.IntVar()
+		self.loss = Tk.IntVar(value = 0)
 		self.wins = Tk.IntVar(value = 0)
-		
+
 		Tk.mainloop()
 
 
@@ -182,6 +182,7 @@ class ZombieGame:
 			if self.word == ''.join(self.guess):
 				self.image_label.configure(image=self.win_img)
 				msg = 'Congratulations, you win! Hit Replay to play again.'
+				self.wins += 1
 				self.direction.set(msg)
 				self.guess_butt.configure(command=self.chill)
 				self.main_window.unbind('<Return>')
@@ -192,13 +193,14 @@ class ZombieGame:
 			self.image_label.configure(image=self.lose_img)
 			msg = 'Aw, you lose! Your word: %s. Hit Replay to play again.' \
 			%self.word
+			self.loss += 1
 			self.direction.set(msg)
 			self.guess_butt.configure(command=self.chill)
 			self.main_window.unbind('<Return>')
 		else:
 			self.image_label.configure(image=self.images[self.mistakes])
 			self.direction.set('Oops! Wrong letter. Try harder!')
-
+			self.badguess += 1
 
 	def quit_now(self):
 		"""quits the game by closing the GUI window"""
