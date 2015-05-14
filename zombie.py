@@ -5,9 +5,9 @@
 import random
 
 
-def index_dict():
+def index_dict(dictfile_name):
     """index and return the dictionary"""
-    dictfile = open('/usr/share/dict/words','r')
+    dictfile = open(dictfile_name,'r')
     index = {}
     for line in dictfile:
         word = line.strip()
@@ -27,7 +27,7 @@ def generate_word(wordbank, level):
     elif level == 1:    # medium
             num = random.randint(8,14)
     else:               # hard
-            num = random.randint(17,23)
+            num = random.randint(15,18)
 
     # generate random word from number
     return random.choice(wordbank[num])

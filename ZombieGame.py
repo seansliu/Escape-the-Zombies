@@ -34,7 +34,7 @@ class ZombieGame:
 		self.lose_img = ImageTk.PhotoImage(Image.open('images/lose.ppm'))
 
 		# initizlize data structures
-		self.wordbank = index_dict()
+		self.wordbank = index_dict('words.txt')
 		self.word = ''
 		self.guess = []
 		self.guesses = []
