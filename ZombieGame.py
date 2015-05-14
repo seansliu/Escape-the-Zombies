@@ -75,7 +75,6 @@ class ZombieGame:
 		self.entry.pack(side='left')
 		self.guess_butt.pack(side='left')
 
-
 		# Play and Quit frames.
 		self.replay_butt = Tk.Button(self.play_frame, text='Replay', \
 			font=("Helvetica", 20))
@@ -136,6 +135,7 @@ class ZombieGame:
 		self.guess_butt.configure(command=self.check_letter)
 		self.replay_butt.configure(command=self.reset)
 		self.direction.set('Save Peach! Please guess a letter below.')
+		self.main_window.bind('<Return>', self.check_letter)
 
 		self.mistakes = 0
 		self.word = generate_word(self.wordbank, mode)
@@ -162,7 +162,7 @@ class ZombieGame:
 		self.direction.set('Select a difficulty to begin.')
 		
 
-	def check_letter(self):
+	def check_letter(self, *args):
 		"""checks input letter with word"""
 		letter = self.entry.get()
 		if len(letter) != 1 or not letter.isalpha():
@@ -184,6 +184,7 @@ class ZombieGame:
 				msg = 'Congratulations, you win! Hit Replay to play again.'
 				self.direction.set(msg)
 				self.guess_butt.configure(command=self.chill)
+				self.main_window.unbind('<Return>')
 			return
 
 		self.mistakes += 1
@@ -193,6 +194,7 @@ class ZombieGame:
 			%self.word
 			self.direction.set(msg)
 			self.guess_butt.configure(command=self.chill)
+			self.main_window.unbind('<Return>')
 		else:
 			self.image_label.configure(image=self.images[self.mistakes])
 			self.direction.set('Oops! Wrong letter. Try harder!')
