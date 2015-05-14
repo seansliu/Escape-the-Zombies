@@ -12,7 +12,7 @@ class ZombieGame:
 	"""Escape the Zombie Game"""
 
 	def __init__(self):
-		"""defines the GUI window"""
+		"""define the GUI window"""
 		self.main_window = Tk.Tk()
 		self.main_window.title('Escape the Zombies!')
 
@@ -27,13 +27,13 @@ class ZombieGame:
 		self.stats_frame = Tk.Frame()
 
 		# initialize images
-		self.images = [
-			ImageTk.PhotoImage(Image.open('images/zombies.ppm')),
-			ImageTk.PhotoImage(Image.open('images/zombies2.ppm'))
-		]
+		self.images = []
+		for i in range(1, 7):
+			filename = 'images/zombies' + str(i) + '.ppm' 
+			self.images.append(ImageTk.PhotoImage(Image.open(filename)))
 
 		# initizlize data structures
-		self.word_bank = {}
+		self.wordbank = index_dict()
 		self.word = ''
 		self.guess = []
 		self.mistakes = 0
@@ -125,6 +125,8 @@ class ZombieGame:
 			print 1
 		else:
 			print 2
+
+		self.word = generate_word(self.wordbank, mode)
 
 		self.image_label.configure(image=self.images[1])
 		self.replay_butt.configure(command=self.reset)
