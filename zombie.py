@@ -8,20 +8,16 @@ import random
 def index_dict():
     """index and return the dictionary"""
     dictfile = open('/usr/share/dict/words','r')
-    dictlist = dictfile.readlines()
-    
-    for line in dictlist:
+    index = {}
+    for line in dictfile:
         word = line.strip()
         wlen = len(word)
-        
-        if wlen not in self.dictionary:
-            self.dictionary[wlen] = [word]
-            print wlen, word
-            
+        if wlen not in index:
+            index[wlen] = [word]
         else:
-            self.dictionary[wlen].append(word) 
+            index[wlen].append(word) 
 
-    return self.dictionary
+    return index
     
 
 def generate_word(wordbank, level):
@@ -35,5 +31,3 @@ def generate_word(wordbank, level):
 
     # generate random word from number
     return random.choice(wordbank[num])
-    
-
