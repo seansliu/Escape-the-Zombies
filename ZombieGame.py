@@ -75,10 +75,10 @@ class ZombieGame:
 
 		# wrong letters bank
 		self.wrong = Tk.StringVar()
-		self.wrong_label1 = Tk.Label(self.wrong_frame, width=100, bg='red', \
-			text='Incorrectly guessed letters:')
-		self.wrong_label2 = Tk.Label(self.wrong_frame, width=100, bg='red', \
-			textvariable=self.wrong)
+		self.wrong_label1 = Tk.Label(self.wrong_frame, width=60, bg='red', \
+			text='Incorrectly guessed letters:', font=("Helvetica", 20))
+		self.wrong_label2 = Tk.Label(self.wrong_frame, width=60, bg='red', \
+			textvariable=self.wrong, font=("Helvetica", 20))
 		self.wrong_label1.pack()
 		self.wrong_label2.pack()
 
@@ -173,6 +173,7 @@ class ZombieGame:
 		self.hard_butt.configure(command=self.start_hard)
 		self.guesses = []
 		self.wrongbox = ''
+		self.wrong.set(self.wrongbox)
 		self.display.set('')
 		self.direction.set('Select a difficulty to begin.')
 		
@@ -202,7 +203,7 @@ class ZombieGame:
 
 		# wrong guess
 		self.mistakes += 1
-		
+
 		self.wrongbox = self.wrongbox + ' ' + letter
 
 		self.wrong.set(self.wrongbox)
