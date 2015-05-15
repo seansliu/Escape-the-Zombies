@@ -48,4 +48,4 @@ In addition, it was at times difficult to acquaint ourselves with the way TKinte
 
 <something that didn’t work at all> ?
 
-<was python the right tool for the project?> yes, but only because we planned our project around a GUI. could have worked with..?
+<was python the right tool for the project?> not necessarily. could have made a web app using html, css, javascript; could have added many more features such as multiple pages, music, etc.
