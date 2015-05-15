@@ -231,9 +231,9 @@ class ZombieGame:
 		"""update and displat stats"""
 		self.badguess_total += self.badguess
 		if win:
-			self.win += 1
+			self.win = self.win + 1
 		else:
-			self.loss += 1
+			self.loss = self.loss + 1
 		stats_msg = 'Wins: %d, Losses:%d, Avg. bad guesses: %.2f' \
 		%(self.wins, self.loss, \
 			float(self.badguess_total)/(self.wins+self.loss))
