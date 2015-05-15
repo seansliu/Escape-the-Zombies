@@ -31,6 +31,5 @@ On initialization, ZombieGame indexes the words.txt dictionary and saves our
 pre-created gameplay images in the images folder. Once the user selects a 
 difficulty, it picks a random word from the appropriate word length, and 
 continues to update the user's guess and game image accordingly. Once the game 
-is over, ie. when the user wins or loses, a final win/lose image is written, 
+is over, i.e. when the user wins or loses, a final win/lose image is written, 
 and the game resets.
-
