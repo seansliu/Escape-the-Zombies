@@ -41,8 +41,7 @@ class ZombieGame:
 		self.guesses = []
 		self.wrongbox = ''
 		self.mistakes = 0
-		self.badguess = 0
-		self.badguess_total = 0
+		self.mistakes_total = 0
 		self.losses = 0
 		self.wins = 0
 				
@@ -100,7 +99,8 @@ class ZombieGame:
 		self.reset()
 
 		# stat tracking frame.
-		self.stats = Tk.StringVar()
+		self.stats = Tk.StringVar( \
+			value='Wins: -,  Losses: -,   Avg. bad guesses: -')
 		self.stats_label = Tk.Label(self.stats_frame, \
 			textvariable=self.stats, font=("Helvetica", 20))
 		self.stats_label.pack(side='left')
@@ -150,7 +150,6 @@ class ZombieGame:
 		self.direction.set('Save Peach! Please guess a letter below.')
 		self.main_window.bind('<Return>', self.check_letter)
 
-		self.badguess = 0
 		self.mistakes = 0
 		self.word = generate_word(self.wordbank, mode)
 		self.guess = len(self.word) * ['_']
@@ -215,7 +214,6 @@ class ZombieGame:
 		else:
 			self.image_label.configure(image=self.images[self.mistakes])
 			self.direction.set('Oops! Wrong letter. Try harder!')
-			self.badguess += 1
 
 
 	def quit_now(self):
@@ -249,14 +247,14 @@ class ZombieGame:
 
 	def update_stats(self, win):
 		"""update and displat stats"""
-		self.badguess_total += self.badguess
+		self.mistakes_total += self.mistakes
 		if win:
 			self.wins += 1
 		else:
 			self.losses += 1
 		stats_msg = 'Wins: %d,  Losses: %d,   Avg. bad guesses: %.2f' \
 		%(self.wins, self.losses, \
-			float(self.badguess_total)/(self.wins+self.losses))
+			float(self.mistakes_total)/(self.wins+self.losses))
 		self.stats.set(stats_msg)
 
 
