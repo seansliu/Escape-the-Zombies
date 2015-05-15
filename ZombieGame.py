@@ -204,9 +204,9 @@ class ZombieGame:
 		# wrong guess
 		self.mistakes += 1
 
-		self.wrongbox = self.wrongbox + ' ' + letter
-
-		self.wrong.set(self.wrongbox)
+		if letter not in self.wrongbox:
+			self.wrongbox = self.wrongbox + ' ' + letter
+			self.wrong.set(self.wrongbox)
 
 		if self.mistakes >= 7:
 			self.lose()
