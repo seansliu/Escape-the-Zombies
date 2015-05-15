@@ -172,7 +172,7 @@ class ZombieGame:
 		self.medium_butt.configure(command=self.start_medium)
 		self.hard_butt.configure(command=self.start_hard)
 		self.guesses = []
-		self.wrongbox.set = ''
+		self.wrongbox = ''
 		self.wrong.set(self.wrongbox)
 		self.display.set('')
 		self.direction.set('Select a difficulty to begin.')
