@@ -39,6 +39,10 @@ class ZombieGame:
 		self.guess = []
 		self.guesses = []
 		self.mistakes = 0
+		self.badguess = 0
+		self.badguess_total = 0
+		self.loss = 0
+		self.wins = 0
 				
 		# directions frame
 		self.direction = Tk.StringVar(value='Select a difficulty to begin.')
@@ -84,27 +88,24 @@ class ZombieGame:
 		self.quit_butt.pack(side='right')
 		self.reset()
 
-		# Stat tracking frame.
-		self.stats = Tk.StringVar(value = 'Avg. number of guesses to win: ')
+		# stat tracking frame.
+		self.stats = Tk.StringVar()
 		self.stats_label = Tk.Label(self.stats_frame, \
 			textvariable=self.stats, font=("Helvetica", 20))
-		self.stats_label.pack(side = 'left')
+		self.stats_label.pack(side='left')
 
-		# Pack frames.
+		# pack frames.
 		self.top_frame.pack()
 		self.difficulty_frame.pack()
 		self.mid_frame.pack()
 		self.word_frame.pack()
 		self.guess_frame.pack()
 		self.stats_frame.pack()
-		self.play_frame.pack(side = 'left')
-		self.quit_frame.pack(side = 'right')
+		self.play_frame.pack(side='left')
+		self.quit_frame.pack(side='right')
 
 		# Variables needed in play function.
 		self.comp = Tk.StringVar()
-		self.badguess = Tk.IntVar()
-		self.loss = Tk.IntVar(value = 0)
-		self.wins = Tk.IntVar(value = 0)
 
 		Tk.mainloop()
 
@@ -137,6 +138,7 @@ class ZombieGame:
 		self.direction.set('Save Peach! Please guess a letter below.')
 		self.main_window.bind('<Return>', self.check_letter)
 
+		self.badguess = 0
 		self.mistakes = 0
 		self.word = generate_word(self.wordbank, mode)
 		self.guess = len(self.word) * ['_']
@@ -168,8 +170,9 @@ class ZombieGame:
 		if len(letter) != 1 or not letter.isalpha():
 			self.direction.set('Invalid input. Please enter an letter ONLY.')
 			return
-
 		letter = letter.lower()
+
+		# correct guess
 		if (letter in self.word.lower()) and not (letter in self.guesses):
 			self.guesses.append(letter)
 			for i in range(len(self.word)):
@@ -180,27 +183,20 @@ class ZombieGame:
 			self.direction.set('Nice guess. Keep it up!')
 
 			if self.word == ''.join(self.guess):
-				self.image_label.configure(image=self.win_img)
-				msg = 'Congratulations, you win! Hit Replay to play again.'
-				self.wins += 1
-				self.direction.set(msg)
-				self.guess_butt.configure(command=self.chill)
+				self.win()
 				self.main_window.unbind('<Return>')
 			return
 
+		# wrong guess
 		self.mistakes += 1
 		if self.mistakes >= 7:
-			self.image_label.configure(image=self.lose_img)
-			msg = 'Aw, you lose! Your word: %s. Hit Replay to play again.' \
-			%self.word
-			self.loss += 1
-			self.direction.set(msg)
-			self.guess_butt.configure(command=self.chill)
+			self.lose()
 			self.main_window.unbind('<Return>')
 		else:
 			self.image_label.configure(image=self.images[self.mistakes])
 			self.direction.set('Oops! Wrong letter. Try harder!')
 			self.badguess += 1
+
 
 	def quit_now(self):
 		"""quits the game by closing the GUI window"""
@@ -210,7 +206,38 @@ class ZombieGame:
 	def chill(self):
 		"""do nothing"""
 		return
-		
+	
+
+	def win(self):
+		"""win state"""
+		self.image_label.configure(image=self.win_img)
+		msg = 'Congratulations, you saved Peach! Hit Replay to play again.'
+		self.direction.set(msg)
+		self.guess_butt.configure(command=self.chill)
+		self.update_stats(win=True)
+
+
+	def lose(self):
+		"""loss state"""
+		self.image_label.configure(image=self.lose_img)
+		msg = 'Aw, you failed! Your word: %s. Hit Replay to play again.' \
+		%self.word
+		self.direction.set(msg)
+		self.guess_butt.configure(command=self.chill)
+		self.update_stats(win=False)
+
+
+	def update_stats(self, win):
+		"""update and displat stats"""
+		self.badguess_total += self.badguess
+		if win:
+			self.win += 1
+		else:
+			self.loss += 1
+		stats_msg = 'Wins: %d, Losses:%d, Avg. bad guesses: %.2f' \
+		%(self.wins, self.loss, \
+			float(self.badguess_total)/(self.wins+self.loss))
+		self.stats.set(stats_msg)
 
 
 z = ZombieGame()
