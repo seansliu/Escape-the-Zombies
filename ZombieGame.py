@@ -16,7 +16,7 @@ class ZombieGame:
 
 		# create the window frames
 		self.top_frame = Tk.Frame()
-		self.difficulty_frame = Tk.Frame()
+		self.diff_frame = Tk.Frame()
 		self.mid_frame = Tk.Frame()
 		self.word_frame = Tk.Frame()
 		self.guess_frame = Tk.Frame()
@@ -43,23 +43,23 @@ class ZombieGame:
 		self.mistakes = 0
 		self.badguess = 0
 		self.badguess_total = 0
-		self.loss = 0
+		self.losses = 0
 		self.wins = 0
 				
 		# directions frame
-		self.direction = Tk.StringVar(value='Select a difficulty to begin.')
+		self.direction = Tk.StringVar()
 		self.dir_label = Tk.Label(self.top_frame, width=60, bg='cyan', \
 			textvariable=self.direction, font=("Helvetica", 20))
 		self.dir_label.pack(side='left')
 
 		# difficulty buttons
-		self.easy_butt = Tk.Button(self.difficulty_frame, text='Easy', \
+		self.easy_butt = Tk.Button(self.diff_frame, text='Easy', \
 			font=("Helvetica", 20))
 		self.easy_butt.pack(side='left')
-		self.medium_butt = Tk.Button(self.difficulty_frame, text='Medium', \
+		self.medium_butt = Tk.Button(self.diff_frame, text='Medium', \
 			font=("Helvetica", 20))
 		self.medium_butt.pack(side='left')
-		self.hard_butt = Tk.Button(self.difficulty_frame, text='Hard', \
+		self.hard_butt = Tk.Button(self.diff_frame, text='Hard', \
 			font=("Helvetica", 20))
 		self.hard_butt.pack(side='left')
 
@@ -107,12 +107,12 @@ class ZombieGame:
 
 		# pack frames.
 		self.top_frame.pack()
-		self.difficulty_frame.pack()
+		self.diff_frame.pack()
 		self.mid_frame.pack()
 		self.word_frame.pack()
+		self.wrong_frame.pack()
 		self.guess_frame.pack()
 		self.stats_frame.pack()
-		self.wrong_frame.pack()
 		self.play_frame.pack(side='left')
 		self.quit_frame.pack(side='right')
 
@@ -175,7 +175,8 @@ class ZombieGame:
 		self.wrongbox = ''
 		self.wrong.set(self.wrongbox)
 		self.display.set('')
-		self.direction.set('Select a difficulty to begin.')
+		intro = 'Peach needs your help! Select a difficulty to begin.'
+		self.direction.set(intro)
 		
 
 	def check_letter(self, *args):
@@ -250,12 +251,12 @@ class ZombieGame:
 		"""update and displat stats"""
 		self.badguess_total += self.badguess
 		if win:
-			self.win = self.win + 1
+			self.wins += 1
 		else:
-			self.loss = self.loss + 1
-		stats_msg = 'Wins: %d, Losses:%d, Avg. bad guesses: %.2f' \
-		%(self.wins, self.loss, \
-			float(self.badguess_total)/(self.wins+self.loss))
+			self.losses += 1
+		stats_msg = 'Wins: %d,  Losses: %d,   Avg. bad guesses: %.2f' \
+		%(self.wins, self.losses, \
+			float(self.badguess_total)/(self.wins+self.losses))
 		self.stats.set(stats_msg)
 
 
