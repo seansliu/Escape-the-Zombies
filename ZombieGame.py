@@ -20,6 +20,7 @@ class ZombieGame:
 		self.mid_frame = Tk.Frame()
 		self.word_frame = Tk.Frame()
 		self.guess_frame = Tk.Frame()
+		self.wrong_frame = Tk.Frame()
 		self.play_frame = Tk.Frame()
 		self.quit_frame = Tk.Frame()
 		self.stats_frame = Tk.Frame()
@@ -38,6 +39,7 @@ class ZombieGame:
 		self.word = ''
 		self.guess = []
 		self.guesses = []
+		self.wrongbox = ''
 		self.mistakes = 0
 		self.badguess = 0
 		self.badguess_total = 0
@@ -71,6 +73,15 @@ class ZombieGame:
 			textvariable=self.display, font=("Helvetica", 20))
 		self.word_label.pack(side='left')
 
+		# wrong letters bank
+		self.wrong = Tk.StringVar()
+		self.wrong_label1 = Tk.Label(self.wrong_frame, width=100, bg='red', \
+			text='Incorrectly guessed letters:')
+		self.wrong_label2 = Tk.Label(self.wrong_frame, width=100, bg='red', \
+			textvariable=self.wrong)
+		self.wrong_label1.pack()
+		self.wrong_label2.pack()
+
 		# input frame
 		self.entry = Tk.Entry(self.guess_frame, width=2, \
 			font=("Helvetica", 20))
@@ -101,6 +112,7 @@ class ZombieGame:
 		self.word_frame.pack()
 		self.guess_frame.pack()
 		self.stats_frame.pack()
+		self.wrong_frame.pack()
 		self.play_frame.pack(side='left')
 		self.quit_frame.pack(side='right')
 
@@ -160,6 +172,7 @@ class ZombieGame:
 		self.medium_butt.configure(command=self.start_medium)
 		self.hard_butt.configure(command=self.start_hard)
 		self.guesses = []
+		self.wrongbox = ''
 		self.display.set('')
 		self.direction.set('Select a difficulty to begin.')
 		
@@ -189,6 +202,11 @@ class ZombieGame:
 
 		# wrong guess
 		self.mistakes += 1
+		
+		self.wrongbox = self.wrongbox + ' ' + letter
+
+		self.wrong.set(self.wrongbox)
+
 		if self.mistakes >= 7:
 			self.lose()
 			self.main_window.unbind('<Return>')
